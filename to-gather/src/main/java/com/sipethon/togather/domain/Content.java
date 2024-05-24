@@ -34,8 +34,7 @@ public class Content {
     @Column
     private Status status;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_content_id")
+    @OneToMany(mappedBy = "contentId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberContent> memberContentList;
 
     public void incrementCurrentMember() {

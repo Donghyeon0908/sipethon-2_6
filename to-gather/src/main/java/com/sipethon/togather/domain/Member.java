@@ -24,7 +24,6 @@ public class Member {
     @Column
     private String fcm;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_content_id")
+    @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberContent> memberContentList;
 }

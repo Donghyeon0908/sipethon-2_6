@@ -14,11 +14,15 @@ public class MemberContent {
     @Column(name = "member_content_id")
     private Long id;
 
-    @Column(name = "member_id")
-    private Long memberId;
+//    @Column(name = "member_id")
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member memberId;
 
-    @Column(name = "content_id")
-    private Long contentId;
+//    @Column(name = "content_id")
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content contentId;
 
     @Column
     private Role role;

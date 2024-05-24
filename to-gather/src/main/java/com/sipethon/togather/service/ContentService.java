@@ -1,9 +1,5 @@
 package com.sipethon.togather.service;
 
-import static com.sipethon.togather.domain.Role.HOST;
-import static com.sipethon.togather.domain.Role.PARTICIPANT;
-import static com.sipethon.togather.domain.Status.SUCCESS;
-
 import com.sipethon.togather.common.exception.CustomException;
 import com.sipethon.togather.common.exception.ErrorCode;
 import com.sipethon.togather.domain.Content;
@@ -17,12 +13,17 @@ import com.sipethon.togather.dto.content.JoinRequestDto;
 import com.sipethon.togather.repository.ContentRepository;
 import com.sipethon.togather.repository.MemberContentRepository;
 import com.sipethon.togather.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+
+import static com.sipethon.togather.domain.Role.HOST;
+import static com.sipethon.togather.domain.Role.PARTICIPANT;
+import static com.sipethon.togather.domain.Status.SUCCESS;
 
 @Service
 @RequiredArgsConstructor
@@ -52,8 +53,8 @@ public class ContentService {
         Long contentId = contentRepository.save(content).getId();
 
         MemberContent memberContent = MemberContent.builder()
-            .memberId(contentRequestDto.getId())
-            .contentId(contentId)
+            .memberId(memberOpt.get())
+            .contentId(content)
             .role(HOST)
             .build();
         memberContentRepository.save(memberContent);
@@ -82,9 +83,14 @@ public class ContentService {
         Content content = contentRepository.findById(contentId)
             .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CONTENT));
 
+        Optional<Member> memberOpt = memberRepository.findById(joinRequestDto.getMemberId());
+        if (memberOpt.isEmpty()) {
+            throw new CustomException(ErrorCode.NOT_FOUND_MEMBER);
+        }
+
         MemberContent memberContent = MemberContent.builder()
-            .memberId(joinRequestDto.getMemberId())
-            .contentId(content.getId())
+            .memberId(memberOpt.get())
+            .contentId(content)
             .role(PARTICIPANT)
             .build();
 

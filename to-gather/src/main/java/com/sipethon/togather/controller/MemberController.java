@@ -6,6 +6,8 @@ import com.sipethon.togather.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1")
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/{id}/content")
-    public ApiResponse<GetMemberContentRes> getMemberContent(@PathVariable("id") Long id) {
+    public ApiResponse<List<GetMemberContentsRes>> getMemberContent(@PathVariable("id") Long id) {
         return ApiResponse.success(memberService.getMemberContent(id));
     }
 }
