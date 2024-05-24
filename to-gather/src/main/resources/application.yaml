@@ -1,0 +1,39 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: to-gather
+  profiles:
+    active: local
+    group:
+      local: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/togather
+    username: togather
+    password: togather
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+logging:
+  level:
+    root: info
+---
