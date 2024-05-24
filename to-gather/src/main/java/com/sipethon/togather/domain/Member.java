@@ -20,6 +20,8 @@ public class Member {
     @Column
     private String password;
     @Column
+    private String nickname;
+    @Column
     private String fcm;
 
     @OneToMany(cascade = CascadeType.ALL)

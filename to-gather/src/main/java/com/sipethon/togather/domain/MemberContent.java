@@ -19,4 +19,7 @@ public class MemberContent {
 
     @Column(name = "content_id")
     private Long contentId;
+
+    @Column
+    private Role role;
 }
