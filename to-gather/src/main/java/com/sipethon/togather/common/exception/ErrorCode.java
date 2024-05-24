@@ -14,6 +14,9 @@ public enum ErrorCode {
     DUPLICATE_USERNAME(400, "M001", "이미 등록된 username 입니다."),
     FAILED_SIGN_IN(400, "M002", "로그인에 실패하였습니다."),
     NOT_FOUND_MEMBER(400, "M003", "존재하지 않는 회원입니다."),
+
+    // Content
+    NOT_FOUND_CONTENT(400, "C001", "존재하지 않는 컨텐츠입니다."),
     ;
 
     private final int status;
