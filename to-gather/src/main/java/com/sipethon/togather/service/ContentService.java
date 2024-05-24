@@ -1,15 +1,19 @@
 package com.sipethon.togather.service;
 
+import static com.sipethon.togather.domain.Role.HOST;
+
 import com.sipethon.togather.domain.Content;
+import com.sipethon.togather.domain.Member;
 import com.sipethon.togather.domain.MemberContent;
-import com.sipethon.togather.domain.Role;
 import com.sipethon.togather.domain.Status;
 import com.sipethon.togather.dto.content.ContentMapDto;
 import com.sipethon.togather.dto.content.ContentRequestDto;
 import com.sipethon.togather.dto.content.ContentResponseDto;
 import com.sipethon.togather.repository.ContentRepository;
 import com.sipethon.togather.repository.MemberContentRepository;
+import com.sipethon.togather.repository.MemberRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,24 +23,31 @@ import org.springframework.stereotype.Service;
 public class ContentService {
     private final ContentRepository contentRepository;
     private final MemberContentRepository memberContentRepository;
+    private final MemberRepository memberRepository;
 
     public void createContent(ContentRequestDto contentRequestDto) {
+        Optional<Member> memberOpt = memberRepository.findById(contentRequestDto.getId());
+        if (memberOpt.isEmpty()) {
+            throw new IllegalArgumentException("Invalid member_id: " + contentRequestDto.getId());
+        }
+
         Content content = Content.builder()
             .contents(contentRequestDto.getContents())
             .date(contentRequestDto.getDate())
             .lat(contentRequestDto.getLat())
             .lng(contentRequestDto.getLng())
-            .targetMember(contentRequestDto.getTarget_member())
+            .targetMember(contentRequestDto.getTargetMember())
             .contact(contentRequestDto.getContact())
             .currentMember(1)
             .status(Status.INPROGRESS)
             .build();
+
         Long contentId = contentRepository.save(content).getId();
 
         MemberContent memberContent = MemberContent.builder()
             .memberId(contentRequestDto.getId())
             .contentId(contentId)
-            .role(Role.HOST)
+            .role(HOST)
             .build();
         memberContentRepository.save(memberContent);
     }

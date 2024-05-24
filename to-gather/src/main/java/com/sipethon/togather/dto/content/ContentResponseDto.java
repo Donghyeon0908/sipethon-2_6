@@ -1,5 +1,7 @@
 package com.sipethon.togather.dto.content;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.sipethon.togather.domain.Status;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -12,13 +14,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ContentResponseDto {
 
     private Long id;
     private String contents;
     private LocalDateTime date;
-    private Integer target_member;
-    private Integer current_member;
+    private Integer targetMember;
+    private Integer currentMember;
     private Float lat;
     private Float lng;
     private Status status;

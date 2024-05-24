@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ContentController {
 
-    private ContentService contentService;
+    private final ContentService contentService;
 
     @PostMapping("/content")
     public ApiResponse<EmptyJsonResponse> createContent(
