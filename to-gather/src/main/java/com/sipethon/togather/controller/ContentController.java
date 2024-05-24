@@ -6,6 +6,7 @@ import com.sipethon.togather.common.EmptyJsonResponse;
 import com.sipethon.togather.dto.content.ContentMapDto;
 import com.sipethon.togather.dto.content.ContentRequestDto;
 import com.sipethon.togather.dto.content.ContentResponseDto;
+import com.sipethon.togather.dto.content.JoinRequestDto;
 import com.sipethon.togather.service.ContentService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,4 +40,12 @@ public class ContentController {
     public ApiResponse<List<ContentMapDto>> getAllContents() {
         return ApiResponse.success(contentService.getAllContents());
     }
+
+    @PostMapping("/contents/{id}/join")
+    public ApiResponse<EmptyJsonResponse> joinContent(@PathVariable Long id,
+        @RequestBody JoinRequestDto joinRequestDto) {
+        contentService.joinContent(id, joinRequestDto);
+        return ApiResponse.success();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.sipethon.togather.dto.content;
 
-import com.sipethon.togather.domain.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,5 +15,5 @@ public class ContentMapDto {
     private Long id;
     private Float lat;
     private Float lng;
-    private Status status;
+    private String status;
 }

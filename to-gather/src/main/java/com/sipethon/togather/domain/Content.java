@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 public class Content {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "content_id")
@@ -36,4 +37,11 @@ public class Content {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_content_id")
     private List<MemberContent> memberContentList;
+
+    public void incrementCurrentMember() {
+        if (this.currentMember == null) {
+            this.currentMember = 0;
+        }
+        this.currentMember++;
+    }
 }
