@@ -17,7 +17,11 @@ public class MemberService {
 
     public SignUpRes signUp(SignUpReq signUpReq) {
 
-        memberRepository.findByUsername(signUpReq.getUsername()).orElseThrow(() -> new CustomException(ErrorCode.DUPLICATE_USERNAME));;
+        Optional<Member> member = memberRepository.findByUsername(signUpReq.getUsername());
+
+        if (member.isPresent()) {
+            throw new CustomException(ErrorCode.DUPLICATE_USERNAME);
+        }
 
         Long id = memberRepository.save(
                 Member.builder()
