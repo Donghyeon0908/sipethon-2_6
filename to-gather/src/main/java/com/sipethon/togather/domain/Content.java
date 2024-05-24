@@ -44,4 +44,9 @@ public class Content {
         }
         this.currentMember++;
     }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 }

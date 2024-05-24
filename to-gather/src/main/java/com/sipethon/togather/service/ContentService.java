@@ -2,6 +2,7 @@ package com.sipethon.togather.service;
 
 import static com.sipethon.togather.domain.Role.HOST;
 import static com.sipethon.togather.domain.Role.PARTICIPANT;
+import static com.sipethon.togather.domain.Status.SUCCESS;
 
 import com.sipethon.togather.common.exception.CustomException;
 import com.sipethon.togather.common.exception.ErrorCode;
@@ -90,6 +91,10 @@ public class ContentService {
         memberContentRepository.save(memberContent);
 
         content.incrementCurrentMember();
+
+        if (content.getCurrentMember().equals(content.getTargetMember())) {
+            content.setStatus(SUCCESS);
+        }
         contentRepository.save(content);
 
 
