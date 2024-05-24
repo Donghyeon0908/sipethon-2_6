@@ -10,8 +10,10 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(400, "C003", "잘못된 요청 값입니다."),
     HANDLE_ACCESS_DENIED(403, "C004", "권한이 없는 사용자입니다."),
 
-    // Member
+    // Member,
     DUPLICATE_USERNAME(400, "M001", "이미 등록된 username 입니다."),
+    FAILED_SIGN_IN(400, "M002", "로그인에 실패하였습니다."),
+    NOT_FOUND_MEMBER(400, "M003", "존재하지 않는 회원입니다."),
     ;
 
     private final int status;
